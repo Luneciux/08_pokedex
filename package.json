@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "name": "pokedex",
+  "version": "1.0.0",
+  "description": "UFC pokedex atv",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luneciux/Pokedex.git"
+  },
+  "keywords": [
+    "Pokemon"
+  ],
+  "author": "Josué Eliel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luneciux/Pokedex/issues"
+  },
+  "homepage": "https://github.com/Luneciux/Pokedex#readme"
+}
