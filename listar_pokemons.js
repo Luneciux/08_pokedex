@@ -12,10 +12,13 @@ Pokemons['pokemons'].forEach(pokemon => {
       SpcATK: pokemon.stats[3].base_stat,
       SpcDFS: pokemon.stats[4].base_stat,
       Velocidade: pokemon.stats[5].base_stat,
+      Peso: pokemon.weight,
+      Altura: pokemon.height,
+      Tipo: pokemon.types,
     })
 });
 
-console.table(PokemonList, ["ID", "Nome", "HP", "Atk", "Dfs", "SpcATK", "SpcDFS", "Velocidade"]);
+console.table(PokemonList, ["ID", "Nome", "HP", "Atk", "Dfs", "SpcATK", "SpcDFS", "Velocidade", "Peso", "Altura"]);
 
 export { PokemonList };
 

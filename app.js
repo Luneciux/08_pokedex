@@ -3,51 +3,109 @@ import express from 'express';
 
 const app = express();
 
-const handleGetRequest = (req, res) => {
-  let content = `
-      <html>
-        <head>
-          <style>
-            table, th, td {
-              border: 1px solid white;
-              border-collapse: collapse;
-            }
-            th, td {
-              padding: 5px;
-              justify-content: center;
-              align-text: center;
-              background-color: #96D4D4;
-            }
-          </style>
-        </head>
-        <body>
-          <table>
-            <tr>
-              <td>ID</td>
-              <td>Nome</td>
-              <td>HP</td>
-              <td>Atk</td>
-              <td>Dfs</td>
-              <td>SpcATK</td>
-              <td>SpcDFS</td>
-              <td>Velocidade</td>
-            </tr>
-  `;
+const handleGetRequest = (req, res, pokemon_id) => {
+  let content;
 
-  PokemonList.forEach(pokemon => {
-    content += `
-          <tr>
-            <td>${pokemon["ID"]}</td>
-            <td>${pokemon["Nome"]}</td>
-            <td>${pokemon["HP"]}</td>
-            <td>${pokemon["Atk"]}</td>
-            <td>${pokemon["Dfs"]}</td>
-            <td>${pokemon["SpcATK"]}</td>
-            <td>${pokemon["SpcDFS"]}</td>
-            <td>${pokemon["Velocidade"]}</td>
-          </tr>
+  if(pokemon_id == null){
+    content = `
+        <html>
+          <head>
+            <style>
+              table, th, td {
+                border: 1px solid white;
+                border-collapse: collapse;
+              }
+              th, td {
+                padding: 5px;
+                justify-content: center;
+                align-text: center;
+                background-color: #96D4D4;
+              }
+            </style>
+          </head>
+          <body>
+            <table>
+              <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>HP</td>
+                <td>Atk</td>
+                <td>Dfs</td>
+                <td>SpcATK</td>
+                <td>SpcDFS</td>
+                <td>Velocidade</td>
+              </tr>
     `;
-  });
+    PokemonList.forEach(pokemon => {
+      content += `
+            <tr>
+              <td>${pokemon["ID"]}</td>
+              <td>${pokemon["Nome"]}</td>
+              <td>${pokemon["HP"]}</td>
+              <td>${pokemon["Atk"]}</td>
+              <td>${pokemon["Dfs"]}</td>
+              <td>${pokemon["SpcATK"]}</td>
+              <td>${pokemon["SpcDFS"]}</td>
+              <td>${pokemon["Velocidade"]}</td>
+            </tr>
+      `;
+    });
+  } else {
+    content = `
+        <html>
+          <head>
+            <style>
+              table, th, td {
+                border: 1px solid white;
+                border-collapse: collapse;
+              }
+              th, td {
+                padding: 5px;
+                justify-content: center;
+                align-text: center;
+                background-color: #96D4D4;
+              }
+            </style>
+          </head>
+          <body>
+            <table>
+              <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>HP</td>
+                <td>Atk</td>
+                <td>Dfs</td>
+                <td>SpcATK</td>
+                <td>SpcDFS</td>
+                <td>Velocidade</td>
+                <td>Peso</td>
+                <td>Altura</td>
+                <td>Tipo</td>
+              </tr>
+    `;
+
+            
+      let tipos = '';
+
+      PokemonList[pokemon_id]["Tipo"].forEach(obj => {
+        tipos += obj.type.name + " "
+      });
+    
+      content += `
+            <tr>
+              <td>${PokemonList[pokemon_id]["ID"]}</td>
+              <td>${PokemonList[pokemon_id]["Nome"]}</td>
+              <td>${PokemonList[pokemon_id]["HP"]}</td>
+              <td>${PokemonList[pokemon_id]["Atk"]}</td>
+              <td>${PokemonList[pokemon_id]["Dfs"]}</td>
+              <td>${PokemonList[pokemon_id]["SpcATK"]}</td>
+              <td>${PokemonList[pokemon_id]["SpcDFS"]}</td>
+              <td>${PokemonList[pokemon_id]["Velocidade"]}</td>
+              <td>${PokemonList[pokemon_id]["Peso"]}</td>
+              <td>${PokemonList[pokemon_id]["Altura"]}</td>
+              <td>${tipos}</td>`;
+    
+  }
 
   content += `
         </table>
@@ -60,12 +118,7 @@ const handleGetRequest = (req, res) => {
   res.writeHead(200);
 
   const pathname = req.url;
-  
-  if (pathname === '/pokemons') {
-    res.end(content);  
-  } else{
-    res.end("<html>Use the URL  /pokemons</html>");  
-  }
+  res.end(content);
 }
 
 app.get('/', (req, res) => {
@@ -73,11 +126,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/pokemons', (req, res) => {
-  res.send('Pokemons');
+  handleGetRequest(req, res);
 });
 
 app.get('/pokemons/:id', (req, res) => {
-  res.send('Pokemons' + req.params.id);
+  handleGetRequest(req, res, req.params.id);
 });
 
 app.listen(3000, function() {
