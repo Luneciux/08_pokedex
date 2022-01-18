@@ -1,5 +1,7 @@
 import { PokemonList } from "./listar_pokemons.js"
-import * as http from 'http';
+import express from 'express';
+
+const app = express();
 
 const handleGetRequest = (req, res) => {
   let content = `
@@ -53,7 +55,7 @@ const handleGetRequest = (req, res) => {
     </html>
   `;
 
-
+  //Nome - Número da espécios - Tipos - PvMax - Ataque - Defesa - Ataque Especial - Defesa Especial - Velocidade - Peso - Altura
   res.setHeader("Content-Type", "text/html");
   res.writeHead(200);
 
@@ -61,21 +63,23 @@ const handleGetRequest = (req, res) => {
   
   if (pathname === '/pokemons') {
     res.end(content);  
-  }else{
+  } else{
     res.end("<html>Use the URL  /pokemons</html>");  
   }
 }
 
-const server = http.createServer((req, res) => {
-  const { method } = req;
- 
-  if(method === "GET") {
-      return handleGetRequest(req, res);
-  } else { throw new Error(`Unsupported request method: ${method}`); }
+app.get('/', (req, res) => {
+  res.send('Olá Mundo!');
 });
 
+app.get('/pokemons', (req, res) => {
+  res.send('Pokemons');
+});
 
-server.listen(8000, 'localhost', () => {
-  const { address, port } = server.address();
-  console.log(`Server is listening on: http://${address}:${port}`);
+app.get('/pokemons/:id', (req, res) => {
+  res.send('Pokemons' + req.params.id);
+});
+
+app.listen(3000, function() {
+  console.log('App de Exemplo escutando na porta 3000!');
 });

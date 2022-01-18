@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/Luneciux/Pokedex/issues"
   },
-  "homepage": "https://github.com/Luneciux/Pokedex#readme"
+  "homepage": "https://github.com/Luneciux/Pokedex#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "handlebars": "^4.7.7",
+    "http": "0.0.1-security",
+    "require": "^2.4.20"
+  }
 }
